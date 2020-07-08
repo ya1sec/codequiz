@@ -54,6 +54,18 @@ body {
   min-height: 80vh;
 }
 
+.scoreinput-container {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 10px;
+}
+
 body.correct {
   background-color: forestgreen;
 }
@@ -98,6 +110,16 @@ body.wrong {
 
 .btn.wrong {
   background-color: #8b2222;
+}
+
+.save-btn {
+  color: deeppink;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
 }
 
 .hide {

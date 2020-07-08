@@ -9,9 +9,19 @@
   <body>
     <main id="main">
       <div id="time">TIME: <span id="secondsleft"></span></div>
-      <a href="#" id="viewhighscores">View Highscores</a>
+      <a href="#" id="viewscores">View Highscores</a>
 
       <div class="container">
+        <div class="scoreinput-container">
+          <input
+            type="text"
+            class="initials"
+            id="initials-input"
+            placeholder="Enter your initials"
+          />
+          <br />
+          <button id="save-btn" class="btn save-btn">SAVE MY SCORE</button>
+        </div>
         <div id="question-container" class="hide">
           <h3 id="question">Question</h3>
           <div id="answer-buttons" class="btn-grid">
@@ -20,7 +30,6 @@
             <button class="btn" id="c3" type="button">Answer 3</button> <br />
             <button class="btn" id="c4" type="button">Answer 4</button> <br />
             <br />
-            <div id="result-container"><span id="result"></span></div>
           </div>
         </div>
         <div class="controls">
@@ -32,3 +41,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+<!-- TODO: CREATE HIGHSCORE ELEMENTS -->

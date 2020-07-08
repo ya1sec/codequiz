@@ -78,7 +78,7 @@ function selectAnswer(e) {
     nextButton.classList.remove("hide");
     // if there are no more questions, display restart button and hide next button... TODO: display score, request initials, save score
   } else {
-    startButton.innerText = "restart";
+    startButton.innerText = "RESTART";
     startButton.classList.remove("hide");
     questionContainerEl.classList.add("hide");
     document.body.classList.remove("correct");
@@ -104,7 +104,7 @@ function setStatusClass(element, correct) {
 // ARRAY OF QUESTIONS AND ANSWERS
 // questions:
 // answers:
-// correctAnswer:
+// correct?:
 
 var questions = [
   {
@@ -161,10 +161,6 @@ var questions = [
 // TODO: WHEN I click the start button
 
 // THEN a timer starts and I am presented with a question
-
-// TODO: WHEN I answer a question
-
-// THEN I am presented with another question
 
 // TODO: WHEN I answer a question incorrectly
 
