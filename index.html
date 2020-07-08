@@ -8,15 +8,24 @@
   </head>
   <body>
     <main id="main">
-      <div id="container">
-        <div id="time">Time:<span id="secondsleft"></span></div>
-        <a href="#" id="viewhighscores">View Highscores</a>
-        <div id="question-container">
-          <h3 id="question">?</h3>
-          <input id="ans1" type="button" value="one" /> <br />
-          <input id="ans2" type="button" value="two" /> <br />
-          <input id="ans3" type="button" value="three" /> <br />
-          <input id="ans4" type="button" value="four" /> <br />
+      <div id="time">TIME: <span id="secondsleft"></span></div>
+      <a href="#" id="viewhighscores">View Highscores</a>
+
+      <div class="container">
+        <div id="question-container" class="hide">
+          <h3 id="question">Question</h3>
+          <div id="answer-buttons" class="btn-grid">
+            <button class="btn" id="c1" type="button">Answer 1</button> <br />
+            <button class="btn" id="c2" type="button">Answer 2</button> <br />
+            <button class="btn" id="c3" type="button">Answer 3</button> <br />
+            <button class="btn" id="c4" type="button">Answer 4</button> <br />
+            <br />
+            <div id="result-container"><span id="result"></span></div>
+          </div>
+        </div>
+        <div class="controls">
+          <button id="start-btn" class="start-btn btn">START</button>
+          <button id="next-btn" class="next-btn btn hide">></button>
         </div>
       </div>
     </main>
