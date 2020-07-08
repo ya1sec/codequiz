@@ -9,14 +9,12 @@ var secondsLeftEl = document.querySelector("#secondsleft");
 // INITIAL DATA
 let shuffledQuestions, currentQuestionIndex;
 
-var c1btn = document.querySelector("#c1");
-var c2btn = document.querySelector("#c2");
-var c3btn = document.querySelector("#c3");
-var c4btn = document.querySelector("#c4");
-var resultEl = document.querySelector("#result");
-
 // EVENT LISTENERS
 startButton.addEventListener("click", startGame);
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  setNextQuestion();
+});
 
 // FUNCTIONS
 
@@ -28,28 +26,85 @@ function startGame() {
   currentQuestionIndex = 0;
   questionContainerEl.classList.remove("hide");
   nextButton.classList.remove("hide");
+  setNextQuestion();
   // TODO: start timer
 }
 
 function setNextQuestion() {
   // function to run when next button is clicked
+
+  resetState();
   showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
+  // function to display current question and answers
   questionEl.innerText = question.question;
+  question.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("btn");
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener("click", selectAnswer);
+    answerButtonsEl.appendChild(button);
+  });
 }
 
-function selectAnswer() {
-  // function to run when answer is selected
-  //run correct or incorrect protocols
+function resetState() {
+  document.body.classList.remove("correct");
+  document.body.classList.remove("wrong");
+
+  nextButton.classList.add("hide");
+  while (answerButtonsEl.firstChild) {
+    answerButtonsEl.removeChild(answerButtonsEl.firstChild);
+  }
 }
+
+function selectAnswer(e) {
+  // function to run when answer is selected
+  // get selected answer
+  const selectedButton = e.target;
+  const correct = selectedButton.dataset.correct;
+  // set status class of body
+  setStatusClass(document.body, correct);
+  Array.from(answerButtonsEl.children).forEach((button) => {
+    setStatusClass(button, button.dataset.correct);
+  });
+
+  // show next button if there are questions left
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove("hide");
+    // if there are no more questions, display restart button and hide next button... TODO: display score, request initials, save score
+  } else {
+    startButton.innerText = "restart";
+    startButton.classList.remove("hide");
+    questionContainerEl.classList.add("hide");
+    document.body.classList.remove("correct");
+    document.body.classList.remove("wrong");
+  }
+}
+
+function setStatusClass(element, correct) {
+  element.classList.remove("correct");
+  element.classList.remove("wrong");
+  if (correct) {
+    element.classList.add("correct");
+  } else {
+    element.classList.add("wrong");
+  }
+}
+
+// function clearStatusclass(element) {
+//   element.classList.remove("correct");
+//   element.classList.remove("wrong");
+// }
 
 // ARRAY OF QUESTIONS AND ANSWERS
 // questions:
-// choices:
+// answers:
 // correctAnswer:
-// USER INPUT
 
 var questions = [
   {
@@ -64,7 +119,7 @@ var questions = [
   },
   {
     question: 'How do you write "Hello World" in an alert box?',
-    choices: [
+    answers: [
       { text: 'msg("Hello World")', correct: false },
       { text: 'alertBox("Hello World")', correct: false },
       { text: 'msgBox("Hello World")', correct: false },
@@ -73,7 +128,7 @@ var questions = [
   },
   {
     question: 'How do you call a function named "myFunction"?',
-    choices: [
+    answers: [
       { text: "function(myFunction)", correct: false },
       { text: "myFunction{}", correct: false },
       { text: "myFunction()", correct: true },
@@ -83,7 +138,7 @@ var questions = [
   {
     question:
       'How do you write an IF statement for executing some code if "i" is NOT equal to 5?',
-    choices: [
+    answers: [
       { text: "if i != 5 {}", correct: false },
       { text: "if i (!=5) {}", correct: false },
       { text: "if (i != 5) {}", correct: true },
@@ -92,7 +147,7 @@ var questions = [
   },
   {
     question: "Which event occurs when the user clicks on an HTML element?",
-    choices: [
+    answers: [
       { text: "onmouseclick", correct: false },
       { text: "onclick", correct: true },
       { text: "onchange", correct: false },
@@ -124,8 +179,4 @@ var questions = [
 
 // THEN I can save my initials and score
 
-startButton.addEventListener("click", startGame);
-nextButton.addEventListener("click", () => {
-  currentQuestionIndex++;
-  setNextQuestion();
-});
+// TODO: LOOK AT RPS GAME FOR HOW TO KEEP SCORE
