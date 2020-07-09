@@ -8,11 +8,18 @@ const time = document.getElementById("time");
 var timer = document.querySelector("#secondsleft");
 const saveContainer = document.getElementById("save-container");
 const timesUp = document.getElementById("times-up");
+// USER INPUT TO SAVE
+var scoresContainer = document.getElementById("scores-container");
+var scoreList = document.getElementById("scores-list");
+var initialsInput = document.getElementById("initials-input");
+var saveButton = document.getElementById("save-btn");
 
 //TODO: user score counter and score (user score divided by 5)
 var keep = true;
 let secondsLeft = 60;
 let numCorrect = 0;
+
+var initials = [];
 
 // INITIAL DATA
 let shuffledQuestions, currentQuestionIndex, userAnswer;
@@ -24,7 +31,32 @@ nextButton.addEventListener("click", () => {
   setNextQuestion();
 });
 
+// SAVE INITIALS
+saveButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  console.log(initialsInput);
+  var inputValue = initialsInput.value;
+  initials.push(inputValue);
+  console.log(initials);
+  renderList();
+  saveContainer.classList.add("hide");
+});
+
 // FUNCTIONS
+
+// render highscore list
+function renderList() {
+  scoreList.innerHTML = "";
+  scoresContainer.classList.remove("hide");
+
+  for (var i = 0; i < initials.length; i++) {
+    var item = initials[i];
+
+    var li = document.createElement("li");
+    li.textContent = item + ":" + " " + numCorrect;
+    scoreList.appendChild(li);
+  }
+}
 
 function setTime() {
   var timerInterval = setInterval(function () {
@@ -79,6 +111,7 @@ function showQuestion(question) {
     button.classList.add("btn");
     if (answer.correct) {
       button.dataset.correct = answer.correct;
+      numCorrect++;
       //TODO: add score. if score < 0, score = 0
     }
     button.addEventListener("click", selectAnswer);
@@ -107,15 +140,14 @@ function selectAnswer(e) {
   Array.from(answerButtonsEl.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
-  let correctAnswer = document.querySelector(".correct");
-  correctAnswer.addEventListener("click", () => {
-    numCorrect++;
-  });
-  console.log(selectedButton);
+  // let correctAnswer = document.querySelector(".correct");
+  // correctAnswer.addEventListener("click", () => {
+  //   numCorrect++;
+  // });
+  // console.log(selectedButton);
 
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
     // show next button if there are questions left
-    // TODO: OR || if timer runs out) {
     nextButton.classList.remove("hide");
     // if there are no more questions, display restart button and hide next button... TODO: display score, request initials, save score, show restart
 
@@ -206,12 +238,6 @@ var questions = [
     ],
   },
 ];
-
-// MAKE COUNTER
-
-// TODO: WHEN I click the start button
-
-// THEN a timer starts and I am presented with a question
 
 // TODO: WHEN I answer a question incorrectly
 
