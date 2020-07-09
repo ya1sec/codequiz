@@ -8,11 +8,23 @@
   </head>
   <body>
     <main id="main">
-      <div id="time">TIME: <span id="secondsleft"></span></div>
-      <a href="#" id="viewscores">View Highscores</a>
+      <p>JAVASCRIPT QUIZ</p>
+      <div id="scores-container" class="scores-container hide">
+        SCORES:
+        <ul id="scores-list"></ul>
+      </div>
+
+      <div id="time" class="time hide">
+        TIME: <span id="secondsleft" class="secondsleft"></span>
+      </div>
+      <div id="times-up" class="times-up hide">
+        TIME'S UP
+      </div>
+      <a href="#" id="viewscores" class="hide">View Highscores</a>
 
       <div class="container">
-        <div class="scoreinput-container">
+        <div id="save-container" class="save-container hide">
+          <p>SCORE: <span></span></p>
           <input
             type="text"
             class="initials"

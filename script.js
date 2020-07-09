@@ -4,10 +4,16 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerEl = document.getElementById("question-container");
 var questionEl = document.querySelector("#question");
 const answerButtonsEl = document.getElementById("answer-buttons");
-var secondsLeftEl = document.querySelector("#secondsleft");
+const time = document.getElementById("time");
+var timer = document.querySelector("#secondsleft");
+const saveContainer = document.getElementById("save-container");
+const timesUP = document.getElementById("times-up");
 
+//TODO: user score counter and score (user score divided by 5)
+
+let secondsLeft = 60;
 // INITIAL DATA
-let shuffledQuestions, currentQuestionIndex;
+let shuffledQuestions, currentQuestionIndex, scoreCount;
 
 // EVENT LISTENERS
 startButton.addEventListener("click", startGame);
@@ -18,21 +24,45 @@ nextButton.addEventListener("click", () => {
 
 // FUNCTIONS
 
+function setTime() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timer.textContent = " " + secondsLeft;
+
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+      secondsLeft = secondsLeft + 60;
+      time.classList.add("hide");
+      timesUP.classList.remove("hide");
+      startButton.innerText = "RESTART";
+      startButton.classList.remove("hide");
+      questionContainerEl.classList.add("hide");
+      document.body.classList.remove("correct");
+      document.body.classList.remove("wrong");
+    }
+  }, 1000);
+}
+
 function startGame() {
   // function to run when start button is clicked
   console.log("started");
+  timesUP.classList.add("hide");
+
   startButton.classList.add("hide");
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerEl.classList.remove("hide");
   nextButton.classList.remove("hide");
+  // start timer
+
+  time.classList.remove("hide");
+
   setNextQuestion();
-  // TODO: start timer
+  setTime();
 }
 
 function setNextQuestion() {
   // function to run when next button is clicked
-
   resetState();
   showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
@@ -46,6 +76,7 @@ function showQuestion(question) {
     button.classList.add("btn");
     if (answer.correct) {
       button.dataset.correct = answer.correct;
+      //TODO: add score. if score < 0, score = 0
     }
     button.addEventListener("click", selectAnswer);
     answerButtonsEl.appendChild(button);
@@ -75,9 +106,14 @@ function selectAnswer(e) {
 
   // show next button if there are questions left
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    // TODO: OR || if timer runs out) {
     nextButton.classList.remove("hide");
-    // if there are no more questions, display restart button and hide next button... TODO: display score, request initials, save score
+    // if there are no more questions, display restart button and hide next button... TODO: display score, request initials, save score, show restart
+
+    // TODO: if save score button is pressed, push input + " " + score into array
   } else {
+    time.classList.add("hide");
+    saveContainer.classList.remove("hide");
     startButton.innerText = "RESTART";
     startButton.classList.remove("hide");
     questionContainerEl.classList.add("hide");
@@ -176,3 +212,5 @@ var questions = [
 // THEN I can save my initials and score
 
 // TODO: LOOK AT RPS GAME FOR HOW TO KEEP SCORE
+
+// save initials, save score, display initials + " " + score in the list array

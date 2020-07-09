@@ -54,7 +54,7 @@ body {
   min-height: 80vh;
 }
 
-.scoreinput-container {
+.save-container {
   display: flex;
 
   flex-direction: column;
@@ -66,13 +66,13 @@ body {
   padding: 10px;
 }
 
-body.correct {
+/* body.correct {
   background-color: forestgreen;
 }
 
 body.wrong {
   background-color: #8b2222;
-}
+} */
 
 /* question container, answer container???, buttons, result, time left, view highscore, highscore container */
 
@@ -81,9 +81,33 @@ body.wrong {
 }
 
 /* TODO: fix this */
-#time {
-  margin-top: 0;
-  margin-right: -100px;
+.time {
+  font-size: 20px;
+  margin-top: 40px;
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.times-up {
+  font-size: 20px;
+  margin-top: 40px;
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.scores-container {
+  margin-top: 0px;
+}
+
+.secondsleft {
+  font-family: JetBrains Mono, monospace;
+  color: deeppink;
 }
 
 #question {
@@ -101,7 +125,7 @@ body.wrong {
 }
 
 .btn:hover {
-  color: #1000f3;
+  color: #00cff3;
 }
 
 .btn.correct {
