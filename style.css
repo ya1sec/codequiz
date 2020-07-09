@@ -76,6 +76,12 @@ body.wrong {
 
 /* question container, answer container???, buttons, result, time left, view highscore, highscore container */
 
+.header {
+  margin: 0, auto;
+  display: flex;
+  justify-content: center;
+}
+
 .question-container {
   padding: 20px;
 }
